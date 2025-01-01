@@ -1,0 +1,84 @@
+$primary-color: #4a90e2;
+$background-color: #ffffff;
+$text-color: #333333;
+$mobile-breakpoint: 768px;
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: $background-color;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $primary-color;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
+
+  &__links {
+    display: flex;
+    gap: 1.5rem;
+
+    a {
+      text-decoration: none;
+      color: $text-color;
+      font-size: 1rem;
+      transition: color 0.3s;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    &--open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background-color: $background-color;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      a {
+        margin: 0.5rem 0;
+      }
+    }
+  }
+
+  &__toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+
+    &-bar {
+      width: 25px;
+      height: 3px;
+      background-color: $text-color;
+      margin: 3px 0;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  @media (max-width: $mobile-breakpoint) {
+    &__links {
+      display: none;
+
+      &--open {
+        display: flex;
+      }
+    }
+
+    &__toggle {
+      display: flex;
+    }
+  }
+}
