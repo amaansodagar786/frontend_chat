@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './Navbar.scss';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Context/AuthContext';
+import { FiLogOut } from 'react-icons/fi';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const { isAuthenticated, logout } = useContext(AuthContext);
 
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <a href="/">MyChatApp</a>
+        <Link to="/">MyChatApp</Link>
       </div>
-      <div className={`navbar__links ${isOpen ? 'navbar__links--open' : ''}`}>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div className="navbar__toggle" onClick={toggleMenu}>
-        <span className="navbar__toggle-bar"></span>
-        <span className="navbar__toggle-bar"></span>
-        <span className="navbar__toggle-bar"></span>
+      <div className="navbar__links">
+        {!isAuthenticated ? (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/chat">Chat</Link>
+            <button className="navbar__logout" onClick={logout}>
+              <FiLogOut style={{ backgroundColor: 'white' }} />
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );

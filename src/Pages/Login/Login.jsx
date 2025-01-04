@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { TextField, Button, InputAdornment, Snackbar, Alert } from "@mui/material";
+import { TextField, Button, InputAdornment, Snackbar, Alert, CircularProgress } from "@mui/material";
 import { Email, Lock } from "@mui/icons-material";
-import { Link, useNavigate } from "react-router-dom";  // Update here for useNavigate
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext"; // Import AuthContext
 import "./Login.scss";
 
 const Login = () => {
+    const { login } = useContext(AuthContext); // Access login method
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const [openSnackbar, setOpenSnackbar] = useState(false);
-    const navigate = useNavigate();  // Use useNavigate instead of useHistory
+    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {
@@ -26,19 +29,16 @@ const Login = () => {
                 .required("Password is required"),
         }),
         onSubmit: async (values) => {
+            setLoading(true);
             try {
-                const response = await axios.post(
-                    `http://localhost:4000/auth/login`,
-                    values
-                );
-                
-                localStorage.setItem("token", response.data.token);
-                console.log(localStorage.getItem("token"));
-
-                navigate("/");  // Navigate to /chat page after successful login
+                const response = await axios.post(`http://localhost:4000/auth/login`, values);
+                login(response.data.token); // Call login from context
+                setLoading(false);
+                navigate("/"); // Redirect to homepage after successful login
             } catch (error) {
                 setError(error.response?.data?.message || "Login failed!");
                 setOpenSnackbar(true);
+                setLoading(false);
             }
         },
     });
@@ -95,12 +95,13 @@ const Login = () => {
                     variant="contained"
                     color="primary"
                     className="login-button"
+                    disabled={loading}
                 >
-                    Login
+                    {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
                 </Button>
                 <div className="register-link">
                     Don't have an account?{" "}
-                    <Link to="/reg" className="link">
+                    <Link to="/register" className="link">
                         Register here
                     </Link>
                 </div>
@@ -108,8 +109,9 @@ const Login = () => {
 
             <Snackbar
                 open={openSnackbar}
-                autoHideDuration={6000}
+                autoHideDuration={3000}
                 onClose={handleCloseSnackbar}
+                position={{ vertical: "top", horizontal: "center" }}
             >
                 <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
                     {error}

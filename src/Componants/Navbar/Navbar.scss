@@ -9,7 +9,12 @@ $mobile-breakpoint: 768px;
   justify-content: space-between;
   padding: 1rem 2rem;
   background-color: $background-color;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed; /* Fix navbar to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it's on top of other content */
+  box-sizing: border-box; /* Ensures padding does not affect width calculations */
 
   &__logo {
     font-size: 1.5rem;
@@ -25,6 +30,7 @@ $mobile-breakpoint: 768px;
   &__links {
     display: flex;
     gap: 1.5rem;
+    margin-left: auto; /* Ensures links align to the right on desktop */
 
     a {
       text-decoration: none;
@@ -37,48 +43,39 @@ $mobile-breakpoint: 768px;
       }
     }
 
-    &--open {
-      display: flex;
-      flex-direction: column;
-      position: absolute;
-      top: 70px;
-      right: 20px;
-      background-color: $background-color;
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-      a {
-        margin: 0.5rem 0;
-      }
+    /* Optional: Ensure links have equal spacing */
+    .navbar__logout {
+      margin-left: 1.5rem; /* Space between logout button and links */
     }
   }
 
-  &__toggle {
-    display: none;
-    flex-direction: column;
+  &__logout {
+    background: none;
+    border: none;
     cursor: pointer;
-
-    &-bar {
-      width: 25px;
-      height: 3px;
-      background-color: $text-color;
-      margin: 3px 0;
-      transition: transform 0.3s ease;
-    }
+    font-size: 1.2rem;
+    color: $text-color;
   }
 
   @media (max-width: $mobile-breakpoint) {
-    &__links {
-      display: none;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
 
-      &--open {
-        display: flex;
-      }
+    &__links {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      margin-left: 0;
     }
 
-    &__toggle {
-      display: flex;
+    &__logo {
+      margin-bottom: 1rem;
     }
   }
+}
+
+/* Add padding to the body to prevent content from being hidden behind the fixed navbar */
+body {
+  padding-top: 80px; /* Adjust based on your navbar height */
 }
