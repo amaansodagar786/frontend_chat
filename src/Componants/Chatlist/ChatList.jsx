@@ -14,6 +14,7 @@ const ChatList = ({ currentUser, onSelectUser }) => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                console.log(data);
                 setUsers(data); // Set all fetched users directly
             } catch (error) {
                 console.error("Error fetching users:", error);
