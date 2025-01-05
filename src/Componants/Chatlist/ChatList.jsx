@@ -8,7 +8,7 @@ const ChatList = ({ currentUser, onSelectUser }) => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const { data } = await axios.get("http://localhost:4000/users");
+                const { data } = await axios.get("https://backend-chat-app-5uae.onrender.com/users");
                 setUsers(data.filter((user) => user._id !== currentUser._id));
             } catch (error) {
                 console.error("Error fetching users:", error);
