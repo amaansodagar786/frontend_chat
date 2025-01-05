@@ -5,7 +5,7 @@ import ChatList from "../../Componants/Chatlist/ChatList";
 import MessageInput from "../../Componants/Messageinput/MessageInput";
 import "./Chatpage.scss";
 
-const socket = io("http://localhost:4000");
+const socket = io("https://backend-chat-app-5uae.onrender.com");
 
 const Chatpage = () => {
     const [currentUser, setCurrentUser] = useState(null); // Current logged-in user
