@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.scss';
 import { Button } from '@mui/material'; // Import Material UI Button
-import { FaLinkedin, FaGithub, FaPhoneAlt, FaEnvelope, FaWhatsapp } from 'react-icons/fa'; // Importing icons
+import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from 'react-icons/fa'; // Importing icons
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for page redirection
 
 const Home = () => {
@@ -49,10 +49,10 @@ const Home = () => {
             <a href="mailto:sodagaramaan@gmail.com" target="_blank" rel="noopener noreferrer">
               <FaEnvelope size={30} color='black' />
             </a>
-            <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer">
+            <a href="www.linkedin.com/in/amaan-sodagar-67b640215" target="_blank" >
               <FaLinkedin size={30} color='blue' />
             </a>
-            <a href="https://github.com/your-github" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/amaansodagar786" target="_blank" >
               <FaGithub size={30} color='black' />
             </a>
           </div>

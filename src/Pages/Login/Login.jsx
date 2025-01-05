@@ -69,6 +69,7 @@ const Login = () => {
                             </InputAdornment>
                         ),
                     }}
+                    sx={{ marginBottom: "20px" }}
                 />
                 <TextField
                     fullWidth
@@ -92,13 +93,13 @@ const Login = () => {
                 />
                 <Button
                     type="submit"
-                    variant="contained"
-                    color="primary"
                     className="login-button"
                     disabled={loading}
                 >
                     {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
                 </Button>
+
+
                 <div className="register-link">
                     Don't have an account?{" "}
                     <Link to="/register" className="link">
@@ -109,10 +110,11 @@ const Login = () => {
 
             <Snackbar
                 open={openSnackbar}
-                autoHideDuration={3000}
+                autoHideDuration={3500}
                 onClose={handleCloseSnackbar}
-                position={{ vertical: "top", horizontal: "center" }}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
+
                 <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
                     {error}
                 </Alert>

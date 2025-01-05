@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -141,12 +142,20 @@ const Register = () => {
 
         <Button
           type="submit"
-          variant="contained"
-          color="primary"
+          // variant="contained"
+          // color="primary"
           className="register-button"
         >
           Register
         </Button>
+
+        {/* Navigation to login page */}
+        <div className="login-redirect">
+          Already have an account?{" "}
+          <Link to="/login" className="login-link">
+           Login here
+          </Link>
+        </div>
       </form>
     </div>
   );

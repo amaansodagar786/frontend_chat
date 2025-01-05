@@ -15,6 +15,8 @@
     }
   
     .register-form {
+      border: 1px solid black;
+
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -26,15 +28,37 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   
       .register-button {
+        margin: 0 auto;
+        width: 30%;
+        border: 1px solid black;
+        border-radius: 20px;
         padding: 10px;
-        background-color: #1976d2;
-        color: white;
-        font-size: 1rem;
-        font-weight: bold;
+        background-color: white;
+        color: black;
+        font-size: 0.9rem;
+        // font-weight: bold;
         &:hover {
-          background-color: #1565c0;
+          background-color: black;
+          color: white;
         }
       }
+      .login-redirect {
+        margin-top: 15px;
+        text-align: center;
+        // font-size: 0.9rem;
+        color: #555;
+    
+        .login-link {
+          color: #007bff;
+          text-decoration: none;
+          // font-weight: bold;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+
     }
   
     @media (max-width: 768px) {
