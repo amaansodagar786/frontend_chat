@@ -1,3 +1,6 @@
+import React from "react";
+import "./ChatBox.scss";
+
 const ChatBox = ({ messages, selectedUser, currentUser }) => {
     return (
         <div className="chat-box">
@@ -22,3 +25,4 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
         </div>
     );
 };
+export default ChatBox;

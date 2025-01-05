@@ -74,7 +74,7 @@ const Chatpage = () => {
             <div className="chat-container">
                 {selectedUser ? (
                     <>
-                        <ChatBox 
+                        <ChatBox
                             messages={messages}
                             selectedUser={selectedUser}
                             currentUser={currentUser}
