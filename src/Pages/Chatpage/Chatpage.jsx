@@ -6,7 +6,7 @@ import MessageInput from "../../Componants/Messageinput/MessageInput";
 import axios from "axios";
 import "./Chatpage.scss";
 
-const socket = io("https://backend-chat-app-5uae.onrender.com");
+const socket = io("https://backend-chat-app-qoti.onrender.com");
 
 const Chatpage = () => {
     const [currentUser, setCurrentUser] = useState(null); // Current logged-in user
@@ -35,7 +35,7 @@ const Chatpage = () => {
             if (selectedUser && currentUser) {
                 try {
                     const { data } = await axios.get(
-                        `https://backend-chat-app-5uae.onrender.com/messages/${selectedUser._id}`,
+                        `https://backend-chat-app-qoti.onrender.com/messages/${selectedUser._id}`,
                         {
                             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                         }

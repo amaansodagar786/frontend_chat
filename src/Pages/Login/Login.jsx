@@ -31,7 +31,7 @@ const Login = () => {
         onSubmit: async (values) => {
             setLoading(true);
             try {
-                const response = await axios.post(`https://backend-chat-app-5uae.onrender.com/auth/login`, values);
+                const response = await axios.post(`https://backend-chat-app-qoti.onrender.com/auth/login`, values);
                 login(response.data.token); // Call login from context
                 setLoading(false);
                 navigate("/"); // Redirect to homepage after successful login

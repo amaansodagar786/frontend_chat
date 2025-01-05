@@ -33,7 +33,7 @@ const Register = () => {
     onSubmit: async (values, { resetForm }) => {
       try {
         const response = await axios.post(
-          `https://backend-chat-app-5uae.onrender.com/auth/register`, // Ensures backend endpoint is correctly connected
+          `https://backend-chat-app-qoti.onrender.com/auth/register`, // Ensures backend endpoint is correctly connected
           values
         );
         alert("Registration Successful!"); // Replace with proper notifications

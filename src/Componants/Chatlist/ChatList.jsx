@@ -9,7 +9,7 @@ const ChatList = ({ currentUser, onSelectUser }) => {
         const fetchUsers = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const { data } = await axios.get("https://backend-chat-app-5uae.onrender.com/users", {
+                const { data } = await axios.get("https://backend-chat-app-qoti.onrender.com/users", {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
