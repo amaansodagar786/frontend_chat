@@ -1,7 +1,4 @@
-import React from "react";
-import "./ChatBox.scss";
-
-const ChatBox = ({ messages, selectedUser }) => {
+const ChatBox = ({ messages, selectedUser, currentUser }) => {
     return (
         <div className="chat-box">
             <div className="chat-header">
@@ -12,7 +9,7 @@ const ChatBox = ({ messages, selectedUser }) => {
                     <div
                         key={index}
                         className={`message ${
-                            msg.senderId === selectedUser._id ? "received" : "sent"
+                            msg.senderId === currentUser._id ? "sent" : "received"
                         }`}
                     >
                         <p>{msg.content}</p>
@@ -25,5 +22,3 @@ const ChatBox = ({ messages, selectedUser }) => {
         </div>
     );
 };
-
-export default ChatBox;

@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import ChatBox from "../../Componants/Chatbox/ChatBox";
 import ChatList from "../../Componants/Chatlist/ChatList";  
 import MessageInput from "../../Componants/Messageinput/MessageInput";
+import axios from "axios";
 import "./Chatpage.scss";
 
 const socket = io("https://backend-chat-app-5uae.onrender.com");
@@ -27,6 +28,27 @@ const Chatpage = () => {
             socket.disconnect();
         };
     }, []);
+
+    // Fetch messages for selected user
+    useEffect(() => {
+        const fetchMessages = async () => {
+            if (selectedUser && currentUser) {
+                try {
+                    const { data } = await axios.get(
+                        `https://backend-chat-app-5uae.onrender.com/messages/${selectedUser._id}`,
+                        {
+                            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+                        }
+                    );
+                    setMessages(data);
+                } catch (error) {
+                    console.error("Error fetching messages:", error);
+                }
+            }
+        };
+
+        fetchMessages();
+    }, [selectedUser, currentUser]);
 
     const handleSendMessage = (content) => {
         if (!currentUser || !selectedUser) return;
@@ -53,14 +75,9 @@ const Chatpage = () => {
                 {selectedUser ? (
                     <>
                         <ChatBox 
-                            messages={messages.filter(
-                                (msg) =>
-                                    (msg.senderId === currentUser._id &&
-                                        msg.receiverId === selectedUser._id) ||
-                                    (msg.senderId === selectedUser._id &&
-                                        msg.receiverId === currentUser._id)
-                            )}
+                            messages={messages}
                             selectedUser={selectedUser}
+                            currentUser={currentUser}
                         />
                         <MessageInput onSendMessage={handleSendMessage} />
                     </>
