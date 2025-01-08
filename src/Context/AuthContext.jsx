@@ -5,43 +5,61 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null); // State to store user details
     const [loading, setLoading] = useState(true); // Track loading state
 
     useEffect(() => {
         const validateToken = async () => {
             const token = localStorage.getItem("token");
-            if (token) {
+            const storedUser = localStorage.getItem("user");
+
+            if (token && storedUser) {
                 try {
-                    await axios.get("http://localhost:4000/protected", {
+                    const parsedUser = JSON.parse(storedUser);
+                    const response = await axios.get("https://backend-chat-app-qoti.onrender.com/protected", {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
                     });
+
+                    // Token is valid, set user and authentication state
+                    setUser(parsedUser);
                     setIsAuthenticated(true);
                 } catch (error) {
                     console.error("Token validation failed:", error);
+                    // Clear invalid data from localStorage
                     localStorage.removeItem("token");
+                    localStorage.removeItem("user");
                     setIsAuthenticated(false);
+                    setUser(null);
                 }
+            } else {
+                console.log("Token or user not found in localStorage.");
             }
-            setLoading(false); // Set loading to false once validation is complete
+            setLoading(false); // Stop loading regardless of outcome
         };
 
         validateToken();
     }, []);
 
-    const login = (token) => {
+    const login = (token, userData) => {
+        // Store token and user in localStorage
         localStorage.setItem("token", token);
-        setIsAuthenticated(true); // Update authentication state
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
+        setIsAuthenticated(true);
     };
 
     const logout = () => {
+        // Clear localStorage and reset states
         localStorage.removeItem("token");
-        setIsAuthenticated(false); // Update authentication state on logout
+        localStorage.removeItem("user");
+        setUser(null);
+        setIsAuthenticated(false);
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );

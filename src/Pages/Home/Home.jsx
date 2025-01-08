@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useContext , useEffect } from 'react';
 import './Home.scss';
 import { Button } from '@mui/material'; // Import Material UI Button
 import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from 'react-icons/fa'; // Importing icons
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for page redirection
+import { AuthContext } from "../../Context/AuthContext"; // Adjust path as needed
+
 
 const Home = () => {
+
+  const { isAuthenticated } = useContext(AuthContext); // Use context
   const navigate = useNavigate(); // Initialize the navigate function
 
   const handleResumeRedirect = () => {
     window.location.href = '/path/to/your/resume.pdf'; // Change this to the actual resume link
   };
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log("Token on Home page:", token);
+}, []);
 
   const handleChatPageRedirect = () => {
     navigate('/chat'); // Redirect to chat page

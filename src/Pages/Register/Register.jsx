@@ -1,14 +1,23 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { TextField, Button, InputAdornment } from "@mui/material";
+import {
+  TextField,
+  Button,
+  InputAdornment,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import { AccountCircle, Email, Lock } from "@mui/icons-material";
 
 import "./Register.scss";
 
 const Register = () => {
+  const navigate = useNavigate(); // To navigate to the login page
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -32,18 +41,28 @@ const Register = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        const response = await axios.post(
-          `https://backend-chat-app-qoti.onrender.com/auth/register`, // Ensures backend endpoint is correctly connected
+        await axios.post(
+          `https://backend-chat-app-qoti.onrender.com/auth/register`,
           values
         );
-        alert("Registration Successful!"); // Replace with proper notifications
+        setSnackbarOpen(true); // Show success snackbar
         resetForm();
+
+        // Navigate to login page after a delay
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000); // Adjust the delay as needed
       } catch (error) {
         console.error("Registration Error:", error);
         alert(error.response?.data?.message || "Registration failed!");
       }
     },
   });
+
+  // Close Snackbar handler
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
+  };
 
   return (
     <div className="register-container">
@@ -142,8 +161,6 @@ const Register = () => {
 
         <Button
           type="submit"
-          // variant="contained"
-          // color="primary"
           className="register-button"
         >
           Register
@@ -153,10 +170,22 @@ const Register = () => {
         <div className="login-redirect">
           Already have an account?{" "}
           <Link to="/login" className="login-link">
-           Login here
+            Login here
           </Link>
         </div>
       </form>
+
+      {/* Snackbar for Success */}
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: "100%" }}>
+          Registration Success! Redirecting to Login...
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

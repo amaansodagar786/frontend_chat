@@ -5,31 +5,35 @@ import "./ChatList.scss";
 const ChatList = ({ currentUser, onSelectUser }) => {
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-        const fetchUsers = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                console.log("Token in fetchUsers:", token); // Log token
-                const { data } = await axios.get("https://backend-chat-app-qoti.onrender.com/users", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log("Fetched users:", data); // Log fetched users
-                setUsers(data); // Set all fetched users
-            } catch (error) {
-                console.error("Error fetching users:", error);
-            }
-        };
 
+    useEffect(() => {
+        const currentUser = JSON.parse(localStorage.getItem("user"));
+        console.log("Current user in ChatList:", currentUser);
+    
         if (currentUser) {
-            console.log("Current User in ChatList:", currentUser); // Log current user
+            const fetchUsers = async () => {
+                try {
+                    const token = localStorage.getItem("token");
+                    if (!token) return console.error("No token found.");
+                    const { data } = await axios.get("https://backend-chat-app-qoti.onrender.com/users", {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    console.log("Fetched users:", data);
+                    setUsers(data);
+                } catch (error) {
+                    console.error("Error fetching users:", error);
+                }
+            };
             fetchUsers();
         }
-    }, [currentUser]);
+    }, []);
+    
+    
 
-    // Log users state to debug rendering
-    console.log("Users in ChatList:", users);
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        console.log("Token on CHATLIST page:", token);
+    }, []);
 
     return (
         <div className="chat-list">

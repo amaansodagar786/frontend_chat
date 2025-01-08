@@ -12,7 +12,7 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
                     <div
                         key={index}
                         className={`message ${
-                            msg.senderId === currentUser._id ? "sent" : "received"
+                            msg.senderId === currentUser.id ? "sent" : "received"
                         }`}
                     >
                         <p>{msg.content}</p>
@@ -25,4 +25,5 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
         </div>
     );
 };
+
 export default ChatBox;

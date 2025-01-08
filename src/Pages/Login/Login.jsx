@@ -2,19 +2,27 @@ import React, { useState, useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { TextField, Button, InputAdornment, Snackbar, Alert, CircularProgress } from "@mui/material";
+import {
+    TextField,
+    Button,
+    InputAdornment,
+    Snackbar,
+    Alert,
+    CircularProgress,
+} from "@mui/material";
 import { Email, Lock } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/AuthContext"; // Import AuthContext
+import { AuthContext } from "../../Context/AuthContext";
 import "./Login.scss";
 
 const Login = () => {
-    const { login } = useContext(AuthContext); // Access login method
+    const { login } = useContext(AuthContext); // Access login method from AuthContext
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
 
+    // Formik for form management
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -32,9 +40,12 @@ const Login = () => {
             setLoading(true);
             try {
                 const response = await axios.post(`https://backend-chat-app-qoti.onrender.com/auth/login`, values);
-                login(response.data.token); // Call login from context
+                const { token, user } = response.data; // Backend should return token and user details
+
+                // Save token and user details to context and localStorage
+                login(token, user);
                 setLoading(false);
-                navigate("/"); // Redirect to homepage after successful login
+                navigate("/"); // Redirect to homepage
             } catch (error) {
                 setError(error.response?.data?.message || "Login failed!");
                 setOpenSnackbar(true);
@@ -51,6 +62,7 @@ const Login = () => {
         <div className="login-container">
             <h1>Login to Your Account</h1>
             <form onSubmit={formik.handleSubmit} className="login-form">
+                {/* Email Input */}
                 <TextField
                     fullWidth
                     id="email"
@@ -71,6 +83,8 @@ const Login = () => {
                     }}
                     sx={{ marginBottom: "20px" }}
                 />
+
+                {/* Password Input */}
                 <TextField
                     fullWidth
                     id="password"
@@ -91,6 +105,8 @@ const Login = () => {
                         ),
                     }}
                 />
+
+                {/* Submit Button */}
                 <Button
                     type="submit"
                     className="login-button"
@@ -99,7 +115,7 @@ const Login = () => {
                     {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
                 </Button>
 
-
+                {/* Registration Link */}
                 <div className="register-link">
                     Don't have an account?{" "}
                     <Link to="/register" className="link">
@@ -108,13 +124,13 @@ const Login = () => {
                 </div>
             </form>
 
+            {/* Error Snackbar */}
             <Snackbar
                 open={openSnackbar}
                 autoHideDuration={3500}
                 onClose={handleCloseSnackbar}
                 anchorOrigin={{ vertical: "top", horizontal: "center" }}
             >
-
                 <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: "100%" }}>
                     {error}
                 </Alert>
