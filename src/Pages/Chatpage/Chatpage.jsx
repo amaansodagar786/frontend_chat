@@ -33,14 +33,7 @@ const Chatpage = () => {
         };
     }, []); // Run once on component mount
 
-    // Log the currentUser when it's updated
-    useEffect(() => {
-        if (currentUser) {
-            console.log("Current user in Chatpage:", currentUser);
-        }
-    }, [currentUser]);  // Runs when currentUser is updated
-
-    // Fetching messages when selectedUser or currentUser is available
+    // Fetch messages for the selected user
     useEffect(() => {
         const fetchMessages = async () => {
             if (selectedUser && currentUser) {
@@ -63,37 +56,19 @@ const Chatpage = () => {
         };
 
         fetchMessages();
-    }, [selectedUser, currentUser]);  // Runs when selectedUser or currentUser changes
+    }, [selectedUser, currentUser]);
+    
 
-    // Real-time message handling
+    // Log the currentUser when it's updated
     useEffect(() => {
-        console.log("Setting up real-time socket listener...");
-        
-        // Socket listener for incoming messages
-        socket.on("receiveMessage", (message) => {
-            console.log("Received message:", message);
-            setMessages((prev) => [...prev, message]);
-        });
-
-        // Cleanup on component unmount or when dependencies change
-        return () => {
-            console.log("Cleaning up socket listener...");
-            socket.off("receiveMessage");
-        };
-    }, [currentUser, selectedUser]); // Re-run if currentUser or selectedUser changes
+        if (currentUser) {
+            console.log("Current user in Chatpage:", currentUser);
+        }
+    }, [currentUser]);  // Runs when currentUser is updated
 
     const handleSendMessage = (content) => {
         if (!currentUser || !selectedUser) {
             console.error("Cannot send message: Missing currentUser or selectedUser");
-            return;
-        }
-
-        // Validate and log the IDs
-        if (!currentUser.id || !selectedUser._id) {
-            console.error("Invalid user IDs:", {
-                currentUserId: currentUser?.id,
-                selectedUserId: selectedUser?._id,
-            });
             return;
         }
 
@@ -102,9 +77,6 @@ const Chatpage = () => {
             receiverId: selectedUser._id,
             content,
         };
-
-        // Log the payload for debugging
-        console.log("Payload to send:", messageData);
 
         // Emit the message to the server
         socket.emit("sendMessage", messageData, (response) => {
