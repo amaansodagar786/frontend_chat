@@ -23,10 +23,7 @@ const Chatpage = () => {
         // Socket listener for incoming messages
         socket.on("receiveMessage", (message) => {
             console.log("Message received:", message);
-            if (
-                selectedUser &&
-                (message.senderId === selectedUser._id || message.receiverId === selectedUser._id)
-            ) {
+            if (message.senderId === selectedUser._id || message.receiverId === selectedUser._id) {
                 setMessages((prev) => [...prev, message]);
             }
         });
@@ -36,7 +33,6 @@ const Chatpage = () => {
         return () => {
             console.log("Cleaning up socket listener...");
             socket.off("receiveMessage");
-            socket.disconnect();
         };
     }, [selectedUser]); // Run once on component mount
 
