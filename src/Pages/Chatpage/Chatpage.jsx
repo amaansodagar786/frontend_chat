@@ -34,7 +34,7 @@ const Chatpage = () => {
             console.log("Cleaning up socket listener...");
             socket.off("receiveMessage");
         };
-    }, []); // Run once on component mount
+    }, [selectedUser]); // Run once on component mount
 
     // Fetch messages for the selected user
     useEffect(() => {
