@@ -22,9 +22,12 @@ const Chatpage = () => {
 
         // Socket listener for incoming messages
         socket.on("receiveMessage", (message) => {
-            console.log("Received message:", message);
-            setMessages((prev) => [...prev, message]);
+            console.log("Message received:", message);
+            if (message.senderId === selectedUser._id || message.receiverId === selectedUser._id) {
+                setMessages((prev) => [...prev, message]);
+            }
         });
+        
 
         // Cleanup on component unmount to avoid memory leaks
         return () => {
@@ -36,15 +39,14 @@ const Chatpage = () => {
     // Fetch messages for the selected user
     useEffect(() => {
         const fetchMessages = async () => {
-            if (selectedUser && currentUser) {
+            if (selectedUser && selectedUser._id && currentUser) {
                 try {
                     console.log(`Fetching messages for user ${selectedUser.username}`);
+
                     const { data } = await axios.get(
                         `https://backend-chat-app-qoti.onrender.com/messages/${selectedUser._id}`,
                         {
-                            headers: {
-                                Authorization: `Bearer ${localStorage.getItem("token")}`,
-                            },
+                            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                         }
                     );
                     console.log("Fetched messages:", data);
@@ -54,10 +56,11 @@ const Chatpage = () => {
                 }
             }
         };
+        
 
         fetchMessages();
     }, [selectedUser, currentUser]);
-    
+
 
     // Log the currentUser when it's updated
     useEffect(() => {
@@ -77,6 +80,7 @@ const Chatpage = () => {
             receiverId: selectedUser._id,
             content,
         };
+        console.log("Sending message data:", messageData);
 
         // Emit the message to the server
         socket.emit("sendMessage", messageData, (response) => {
