@@ -17,7 +17,8 @@ const Chatpage = () => {
         if (user) {
             setCurrentUser(user);
             console.log("Current user set:", user);
-            socket.emit("userConnected", user._id);
+            socket.emit("userConnected", user.id);
+            console.log("Emitting userConnected with ID:", user.id);
         }
 
         // Socket listener for incoming messages
