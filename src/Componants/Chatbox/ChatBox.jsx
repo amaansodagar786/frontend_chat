@@ -11,14 +11,14 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
                 {messages.map((msg, index) => (
                     <div
                         key={index}
-                        className={`message ${
-                            msg.senderId === currentUser.id ? "sent" : "received"
-                        }`}
+                        className={`message ${msg.senderId === currentUser.id ? "sent" : "received"
+                            }`}
                     >
-                        <p>{msg.content}</p>
+                        <p className="content">{msg.content}</p>
                         <span className="timestamp">
                             {new Date(msg.timestamp).toLocaleTimeString()}
                         </span>
+
                     </div>
                 ))}
             </div>
