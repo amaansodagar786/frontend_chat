@@ -1,6 +1,6 @@
 .chat-page {
     display: flex;
-    height: 100vh;
+    height: 90vh;
     background: #f4f6f8;
     flex-direction: row;
 
@@ -10,6 +10,7 @@
         border-right: 1px solid #ddd;
         padding: 1rem;
         overflow-y: auto;
+        max-width: 300px;
 
         h3 {
             margin-bottom: 1rem;
@@ -32,6 +33,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        // padding: 1rem;
 
         .no-chat-selected {
             margin: auto;
@@ -40,25 +42,35 @@
         }
     }
 
-    // Make chat-container and chat-list stack on smaller screens
-    @media (max-width: 768px) {
-        flex-direction: column;
+    // Make chat-container and chat-list stack vertically only for very small screens
+   
 
+    @media (max-width: 768px) {
         .chat-list {
-            width: 100%;
-            border-right: none;
-            border-bottom: 1px solid #ddd;
+            width: 35%;
+            max-width: 320px;
         }
 
         .chat-container {
-            width: 100%;
+            width: 65%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .chat-list {
+            width: 40%;
+            max-width: 280px;
+        }
+
+        .chat-container {
+            width: 60%;
         }
     }
 }
 
 .chat-box {
     flex: 1;
-    padding: 1rem;
+    // padding: 1rem;
     background: #fff;
     overflow-y: auto;
 
@@ -140,6 +152,8 @@
 }
 
 // Responsiveness for mobile and tablet screens
+
+
 @media (max-width: 768px) {
     .message-input {
         input {
@@ -154,25 +168,27 @@
 
 @media (max-width: 480px) {
     .chat-page {
-        .chat-list {
+        flex-direction: row; /* Keep chat list and container side by side */
+    }
+
+    .chat-list {
+        width: 45%;
+        max-width: 260px;
+    }
+
+    .chat-container {
+        width: 55%;
+    }
+
+    .message-input {
+        flex-direction: column;
+        input {
             width: 100%;
-            padding: 0.5rem;
+            margin-bottom: 0.5rem;
         }
 
-        .chat-container {
+        button {
             width: 100%;
-        }
-
-        .message-input {
-            flex-direction: column;
-            input {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-
-            button {
-                width: 100%;
-            }
         }
     }
 }
