@@ -22,13 +22,28 @@ const Chatpage = () => {
         }
 
         // Socket listener for incoming messages
+        // socket.on("receiveMessage", (message) => {
+        //     console.log("Message received:", message);
+        //     if (message.senderId === selectedUser._id || message.receiverId === selectedUser._id) {
+        //         setMessages((prev) => [...prev, message]);
+        //     }
+        // });
+
         socket.on("receiveMessage", (message) => {
             console.log("Message received:", message);
-            if (message.senderId === selectedUser._id || message.receiverId === selectedUser._id) {
-                setMessages((prev) => [...prev, message]);
+            if (message.senderId === selectedUser?._id || message.receiverId === selectedUser?._id) {
+                setMessages((prev) => {
+                    const isDuplicate = prev.some(
+                        (msg) =>
+                            msg.content === message.content &&
+                            msg.timestamp === message.timestamp &&
+                            msg.senderId === message.senderId
+                    );
+                    return isDuplicate ? prev : [...prev, message];
+                });
             }
         });
-        
+
 
         // Cleanup on component unmount to avoid memory leaks
         return () => {
@@ -57,7 +72,7 @@ const Chatpage = () => {
                 }
             }
         };
-        
+
 
         fetchMessages();
     }, [selectedUser, currentUser]);
@@ -84,15 +99,34 @@ const Chatpage = () => {
         console.log("Sending message data:", messageData);
 
         // Emit the message to the server
+        //     socket.emit("sendMessage", messageData, (response) => {
+        //         if (response.success) {
+        //             console.log("Message sent successfully:", messageData);
+        //             setMessages((prev) => [...prev, { ...messageData, timestamp: new Date() }]);
+        //         } else {
+        //             console.error("Message failed to send. Server response:", response);
+        //         }
+        //     });
+        // };
         socket.emit("sendMessage", messageData, (response) => {
             if (response.success) {
                 console.log("Message sent successfully:", messageData);
-                setMessages((prev) => [...prev, { ...messageData, timestamp: new Date() }]);
+                // setMessages((prev) => {
+                //     const isDuplicate = prev.some(
+                //         (msg) =>
+                //             msg.content === messageData.content &&
+                //             msg.timestamp === messageData.timestamp &&
+                //             msg.senderId === messageData.senderId
+                //     );
+                //     return isDuplicate ? prev : [...prev, { ...messageData, timestamp: new Date() }];
+                // });
             } else {
                 console.error("Message failed to send. Server response:", response);
             }
         });
     };
+
+
 
     return (
         <div className="chat-page">

@@ -1,0 +1,28 @@
+// .chat-box {
+//     display: flex;
+//     flex-direction: column;
+//     padding: 10px;
+//     gap: 10px;
+//     overflow-y: auto;
+//     height: 100%; // Adjust height to your layout
+
+//     .message {
+//         max-width: 60%; // Limit the message width
+//         padding: 8px 12px;
+//         border-radius: 12px;
+//         word-wrap: break-word;
+//     }
+
+//     .sent {
+//         align-self: flex-end;
+//         background-color: #dcf8c6; // Light green for sent messages
+//         color: #000;
+//     }
+
+//     .received {
+//         align-self: flex-start;
+//         background-color: #ffffff; // White for received messages
+//         color: #000;
+//         border: 1px solid #ccc; // Optional border for received messages
+//     }
+// }
