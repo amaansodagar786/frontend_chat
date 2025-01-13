@@ -68,59 +68,59 @@
     }
 }
 
-.chat-box {
-    flex: 1;
-    // padding: 1rem;
-    background: #fff;
-    overflow-y: auto;
+// .chat-box {
+//     flex: 1;
+//     // padding: 1rem;
+//     background: #fff;
+//     overflow-y: auto;
 
-    .chat-header {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-    }
+//     .chat-header {
+//         border-bottom: 1px solid #ddd;
+//         padding-bottom: 0.5rem;
+//         margin-bottom: 1rem;
+//     }
 
-    .chat-messages {
-        display: flex;
-        flex-direction: column;
+//     .chat-messages {
+//         display: flex;
+//         flex-direction: column;
 
-        .message {
-            margin: 0.5rem 0;
-            max-width: 70%;
-            display: flex;
-            flex-direction: column;
+//         .message {
+//             margin: 0.5rem 0;
+//             max-width: 70%;
+//             display: flex;
+//             flex-direction: column;
 
-            &.sent {
-                align-self: flex-end;
-                p {
-                    background: #4caf50;
-                    color: #fff;
-                }
-            }
+//             &.sent {
+//                 align-self: flex-end;
+//                 p {
+//                     background: #4caf50;
+//                     color: #fff;
+//                 }
+//             }
 
-            &.received {
-                align-self: flex-start;
-                p {
-                    background: #e0e0e0;
-                }
-            }
+//             &.received {
+//                 align-self: flex-start;
+//                 p {
+//                     background: #e0e0e0;
+//                 }
+//             }
 
-            .content {
-                padding: 0.5rem;
-                border-radius: 10px;
-                word-wrap: break-word;
-                margin: 0;
-            }
+//             .content {
+//                 padding: 0.5rem;
+//                 border-radius: 10px;
+//                 word-wrap: break-word;
+//                 margin: 0;
+//             }
 
-            .timestamp {
-                font-size: 0.8rem;
-                color: #999;
-                margin-top: 0.2rem;
-                align-self: flex-end;
-            }
-        }
-    }
-}
+//             .timestamp {
+//                 font-size: 0.8rem;
+//                 color: #999;
+//                 margin-top: 0.2rem;
+//                 align-self: flex-end;
+//             }
+//         }
+//     }
+// }
 
 // Message Input
 .message-input {

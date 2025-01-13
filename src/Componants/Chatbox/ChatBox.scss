@@ -1,4 +1,4 @@
-//CHATBOX.SCSS
+// CHATBOX.SCSS
 
 .chat-box {
     flex: 1;
@@ -8,15 +8,6 @@
     padding-right: 1rem;
     background: #fff;
     overflow-y: auto;
-
-    // .chat-header {
-    //     border-bottom: 1px solid #ddd;
-    //     padding-bottom: 0.5rem;
-    //     margin-bottom: 1rem;
-    //     h3 {
-    //         margin: 0;
-    //     }
-    // }
 
     .chat-header {
         position: sticky;
@@ -66,6 +57,24 @@
                 color: #999;
                 margin-top: 0.2rem;
                 align-self: flex-end;
+            }
+        }
+    }
+
+    // Responsiveness for mobile and tablet screens
+
+    @media (max-width: 768px) {
+        .chat-messages {
+            .message {
+                max-width: 80%;
+            }
+        }
+    }
+
+    @media (max-width: 480px) {
+        .chat-messages {
+            .message {
+                max-width: 90%;
             }
         }
     }
