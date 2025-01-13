@@ -120,23 +120,24 @@
     }
 
     .chat-list {
-        width: 45%;
+        width: 30%;
         max-width: 260px;
     }
 
     .chat-container {
-        width: 55%;
+        width: 70%;
     }
 
     .message-input {
         flex-direction: column;
         input {
-            width: 100%;
+            width: 90%;
             margin-bottom: 0.5rem;
         }
 
         button {
-            width: 100%;
+            width: 50%;
+            margin: 0 auto;
         }
     }
 }
