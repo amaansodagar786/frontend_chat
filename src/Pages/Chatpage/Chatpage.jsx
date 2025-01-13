@@ -98,28 +98,11 @@ const Chatpage = () => {
         };
         console.log("Sending message data:", messageData);
 
-        // Emit the message to the server
-        //     socket.emit("sendMessage", messageData, (response) => {
-        //         if (response.success) {
-        //             console.log("Message sent successfully:", messageData);
-        //             setMessages((prev) => [...prev, { ...messageData, timestamp: new Date() }]);
-        //         } else {
-        //             console.error("Message failed to send. Server response:", response);
-        //         }
-        //     });
-        // };
+        
         socket.emit("sendMessage", messageData, (response) => {
             if (response.success) {
                 console.log("Message sent successfully:", messageData);
-                // setMessages((prev) => {
-                //     const isDuplicate = prev.some(
-                //         (msg) =>
-                //             msg.content === messageData.content &&
-                //             msg.timestamp === messageData.timestamp &&
-                //             msg.senderId === messageData.senderId
-                //     );
-                //     return isDuplicate ? prev : [...prev, { ...messageData, timestamp: new Date() }];
-                // });
+                
             } else {
                 console.error("Message failed to send. Server response:", response);
             }

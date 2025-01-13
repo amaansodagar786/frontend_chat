@@ -2,10 +2,13 @@ import React, { useEffect, useRef } from "react";
 import "./ChatBox.scss";
 
 const ChatBox = ({ messages, selectedUser, currentUser }) => {
-    const chatEndRef = useRef(null); // Ref to the last message
+    const chatEndRef = useRef(null);
 
-    // Scroll to the bottom when messages update
     useEffect(() => {
+        console.log("Full Messages Array:", messages);
+        console.log("Selected User:", selectedUser);
+        console.log("Current User:", currentUser);
+
         if (chatEndRef.current) {
             chatEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
@@ -17,25 +20,32 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
                 <h3>{selectedUser.username}</h3>
             </div>
             <div className="chat-messages">
-                {messages.map((msg, index) => (
-                    <div
-                        key={index}
-                        className={`message ${
-                            msg.senderId === currentUser.id ? "sent" : "received"
-                        }`}
-                    >
-                        <p className="content">{msg.content}</p>
-                        <span className="timestamp">
-                            {new Date(msg.timestamp).toLocaleTimeString()}
-                        </span>
-                    </div>
-                ))}
-                {/* Empty div to act as the scroll target */}
+                {messages.map((msg, index) => {
+                   
+                    const senderId =  msg.sender  ; // Adjust as needed
+                    
+                    console.log(
+                        `Message ${index}: SenderId ${senderId}, CurrentUserId ${currentUser.id}`
+                    );
+
+                    return (
+                        <div
+                            key={index}
+                            className={`message ${
+                                senderId === currentUser.id ? "sent" : "received"
+                            }`}
+                        >
+                            <p className="content">{msg.content}</p>
+                            <span className="timestamp">
+                                {new Date(msg.timestamp).toLocaleTimeString()}
+                            </span>
+                        </div>
+                    );
+                })}
                 <div ref={chatEndRef}></div>
             </div>
         </div>
     );
 };
 
-// Wrap with React.memo for optimization
 export default React.memo(ChatBox);
