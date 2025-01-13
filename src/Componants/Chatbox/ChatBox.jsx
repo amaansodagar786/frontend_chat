@@ -37,4 +37,5 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
     );
 };
 
-export default ChatBox;
+// Wrap with React.memo for optimization
+export default React.memo(ChatBox);

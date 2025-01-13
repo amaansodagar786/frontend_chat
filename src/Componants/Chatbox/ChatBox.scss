@@ -1,5 +1,3 @@
-// CHATBOX.SCSS
-
 .chat-box {
     flex: 1;
     padding-top: 0rem;
@@ -30,16 +28,22 @@
             display: flex;
             flex-direction: column;
 
+            // Sent messages (right side)
             &.sent {
                 align-self: flex-end;
+                text-align: right;
+
                 p {
                     background: #4caf50;
                     color: #fff;
                 }
             }
 
+            // Received messages (left side)
             &.received {
                 align-self: flex-start;
+                text-align: left;
+
                 p {
                     background: #e0e0e0;
                 }
