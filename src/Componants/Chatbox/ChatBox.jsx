@@ -22,11 +22,15 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
             <div className="chat-messages">
                 {messages.map((msg, index) => {
                    
-                    const senderId =  msg.sender  ; // Adjust as needed
-                    
+                    // const senderId =  msg.sender  ; // Adjust as needed
+                    const senderId = msg.senderId || msg.sender; // Handle both cases
+                   
                     console.log(
-                        `Message ${index}: SenderId ${senderId}, CurrentUserId ${currentUser.id}`
-                    );
+                        `Message ${index}: SenderId ${
+                            msg.sender || 'Unknown'
+                        }, CurrentUserId ${currentUser.id}`
+                      );
+                      
 
                     return (
                         <div
