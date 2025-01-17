@@ -27,7 +27,7 @@ const ChatBox = ({ messages, selectedUser, currentUser }) => {
                    
                     console.log(
                         `Message ${index}: SenderId ${
-                            msg.sender || 'Unknown'
+                            msg.sender || senderId ||'Unknown'
                         }, CurrentUserId ${currentUser.id}`
                       );
                       

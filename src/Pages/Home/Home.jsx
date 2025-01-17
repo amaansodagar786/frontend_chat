@@ -4,7 +4,7 @@ import { Button } from '@mui/material'; // Import Material UI Button
 import { FaLinkedin, FaGithub, FaEnvelope, FaWhatsapp } from 'react-icons/fa'; // Importing icons
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for page redirection
 import { AuthContext } from "../../Context/AuthContext"; // Adjust path as needed
-
+import Resume from "../../Items/Resume.pdf"; // Adjust path as needed
 
 const Home = () => {
 
@@ -69,16 +69,14 @@ const Home = () => {
         </section>
 
         {/* Resume Section */}
-        <section className="resume">
-          <Button
-            
-            
-            onClick={handleResumeRedirect}
-            className="resume-btn"
-          >
-            Resume
-          </Button>
+        
+         <section className="resume">
+          <a href={Resume} download="Resume-Amaan Sodagar.pdf">
+            <Button className="resume-btn">Resume</Button>
+          </a>
         </section>
+
+
 
         {/* Chat Page Button */}
         <section className="chatpage">

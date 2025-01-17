@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar__logo">
-        <Link to="/">MyChatApp</Link>
+        <Link to="/">ChatApp</Link>
       </div>
       <div className="navbar__links">
         {!isAuthenticated ? (
