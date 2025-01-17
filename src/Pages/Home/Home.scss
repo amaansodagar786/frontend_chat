@@ -120,7 +120,7 @@
   @media (max-width: 768px) {
     .home-container {
       padding: 10px;
-    }
+    
   
     .home-content {
       .intro h1 {
@@ -141,6 +141,7 @@
       }
     }
   }
+}
   
   @media (max-width: 480px) {
     .home-container {
@@ -150,6 +151,9 @@
     .home-content {
       .intro h1 {
         font-size: 1.5rem;
+      }
+      .intro p {
+        width: 80%;
       }
   
       .features h2 {
