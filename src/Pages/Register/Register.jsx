@@ -9,6 +9,7 @@ import {
   InputAdornment,
   Snackbar,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import { AccountCircle, Email, Lock } from "@mui/icons-material";
 
@@ -17,6 +18,7 @@ import "./Register.scss";
 const Register = () => {
   const navigate = useNavigate(); // To navigate to the login page
   const [snackbarOpen, setSnackbarOpen] = useState(false); // Snackbar state
+  const [loading, setLoading] = useState(false); // Loading state
 
   const formik = useFormik({
     initialValues: {
@@ -40,6 +42,7 @@ const Register = () => {
         .required("Confirm Password is required"),
     }),
     onSubmit: async (values, { resetForm }) => {
+      setLoading(true); // Start loading
       try {
         await axios.post(
           `https://backend-chat-app-qoti.onrender.com/auth/register`,
@@ -50,10 +53,12 @@ const Register = () => {
 
         // Navigate to login page after a delay
         setTimeout(() => {
+          setLoading(false); // Stop loading
           navigate("/login");
         }, 2000); // Adjust the delay as needed
       } catch (error) {
         console.error("Registration Error:", error);
+        setLoading(false); // Stop loading
         alert(error.response?.data?.message || "Registration failed!");
       }
     },
@@ -162,8 +167,10 @@ const Register = () => {
         <Button
           type="submit"
           className="register-button"
+          disabled={loading} // Disable button when loading
+          variant="contained"
         >
-          Register
+          {loading ? <CircularProgress size={24} color="inherit" /> : "Register"}
         </Button>
 
         {/* Navigation to login page */}
