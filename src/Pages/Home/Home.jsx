@@ -57,7 +57,7 @@ const Home = () => {
             <a href="mailto:sodagaramaan@gmail.com" target="_blank" rel="noopener noreferrer">
               <FaEnvelope size={30} color='black' />
             </a>
-            <a href="www.linkedin.com/in/amaan-sodagar-67b640215" target="_blank" >
+            <a href="https://www.linkedin.com/in/amaan-sodagar-67b640215/" target="_blank" >
               <FaLinkedin size={30} color='blue' />
             </a>
             <a href="https://github.com/amaansodagar786" target="_blank" >
