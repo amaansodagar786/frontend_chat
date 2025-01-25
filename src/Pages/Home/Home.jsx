@@ -11,9 +11,7 @@ const Home = () => {
   const { isAuthenticated } = useContext(AuthContext); // Use context
   const navigate = useNavigate(); // Initialize the navigate function
 
-  const handleResumeRedirect = () => {
-    window.location.href = '/path/to/your/resume.pdf'; // Change this to the actual resume link
-  };
+  
 
 
   useEffect(() => {
