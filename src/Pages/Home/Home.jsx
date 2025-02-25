@@ -60,9 +60,7 @@ const Home = () => {
             <a href="https://www.linkedin.com/in/amaan-sodagar-67b640215/" target="_blank" >
               <FaLinkedin size={30} color='blue' />
             </a>
-            <a href="https://github.com/amaansodagar786" target="_blank" >
-              <FaGithub size={30} color='black' />
-            </a>
+            
           </div>
         </section>
 
